@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>HOME</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="welcome">
+
+	<div class="">
+
+		<div class="center-item">
+
+			<img src="assets/logo.png" alt="" class="logo">
+
+			<br>
+			<br>
+
+			<h3>¿Qué deseas hacer?</h3>
+
+			<button class="bmb-btn t-4" [routerLink]="['/tabs']" (click)="mod('v')" routerDirection="forward">Visualización</button>
+
+			<button class="bmb-btn red t-4" [routerLink]="['/tabs']" (click)="mod('r')" routerDirection="forward">Repaso</button>
+
+		</div>
+		
+	</div>
+
+</ion-content>

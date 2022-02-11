@@ -1,0 +1,10 @@
+ion-item {
+    --min-height: 16px;
+    min-height: 28px !important;
+}
+
+canvas {
+    display: none;
+    position: absolute;
+    top: 0;
+}

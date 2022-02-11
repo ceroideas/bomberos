@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button text=""></ion-back-button>
+      <!-- <ion-button *ngIf="forceBack" (click)="api.back()"> <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon> </ion-button> -->
+    </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="refresh()" *ngIf="mod == 'r'">
+        <ion-icon slot="icon-only" style="color: #f8bd1b" name="refresh-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="gray">
+
+  <div class="ion-padding">
+    <h5 style="color: #fff;">Selecciona los municipios y provincias correctos</h5>
+  </div>
+
+  <ion-row>
+
+    <ion-col *ngIf="mod == 'v'">
+      <ul id="sortable1" class="connectedSortable">
+        <ion-row>
+          <ion-col size="6" *ngFor="let p of data2" class="ion-no-padding">
+            <li class="ui-state-default" [ngStyle]="{'background-color':p.color,'color':p.text}">{{p.name}}</li>
+          </ion-col>
+        </ion-row>
+      </ul>
+    </ion-col>
+
+    <ion-col *ngIf="mod == 'r'">
+    <!-- <ion-col> -->
+      <ul id="sortable1" class="connectedSortable">
+        <ion-row>
+          <ion-col size="6" *ngFor="let p of data2" class="ion-no-padding">
+            <li class="ui-state-default" (click)="addRemove(p)" [ngStyle]="{'background-color': ((userSelected | search:p:'munic') ? 'lightgreen' : '#fff') ,'color':p.text}">{{p.name}}</li>
+          </ion-col>
+        </ion-row>
+      </ul>
+
+    </ion-col>
+  </ion-row>
+
+  <canvas id="canvas"></canvas>
+
+</ion-content>
+
+<ion-footer>
+  <ion-row class="ion-no-margin ion-no-padding" *ngIf="mod == 'r'">
+    <ion-col class="ion-no-margin ion-no-padding" size="4">
+      <ion-button (click)="makeCorregir()" fill="solid" expand="full" color="success" class="ion-no-margin ion-no-padding">CORREGIR</ion-button>
+    </ion-col>
+    <ion-col class="ion-no-margin ion-no-padding" size="4">
+      <ion-button (click)="makeResolver()" fill="solid" expand="full" color="danger" class="ion-no-margin ion-no-padding">RESOLVER</ion-button>
+    </ion-col>
+    <ion-col class="ion-no-margin ion-no-padding" size="4">
+      <ion-button (click)="siguiente()" fill="solid" expand="full" color="secondary" class="ion-no-margin ion-no-padding">SIGUIENTE</ion-button>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="ion-no-margin ion-no-padding" *ngIf="mod == 'v'">
+    <ion-col class="ion-no-margin ion-no-padding" size="12">
+      <ion-button (click)="siguiente()" fill="solid" expand="full" color="secondary" class="ion-no-margin ion-no-padding">SIGUIENTE</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

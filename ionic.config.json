@@ -1,5 +1,7 @@
 {
   "name": "bomberos",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

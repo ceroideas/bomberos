@@ -1,0 +1,101 @@
+<ion-header>
+  <ion-toolbar color="primary">
+  	<ion-buttons slot="start">
+      <ion-back-button text=""></ion-back-button>
+      <!-- <ion-button *ngIf="forceBack" (click)="api.back()"> <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon> </ion-button> -->
+    </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="refresh()" *ngIf="mod == 'r'">
+        <ion-icon slot="icon-only" style="color: #f8bd1b" name="refresh-circle-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="makeResolver()" *ngIf="mod == 'v'">
+        <ion-icon slot="icon-only" style="color: #f8bd1b" name="refresh-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="main-screen" style="--background: #111">
+
+  <h3 *ngIf="mod == 'r'" style="position: absolute; z-index: 9999; color: #fff; text-shadow: black 0px 0px 5px; margin: 0; top: 16px; left: 16px;">{{userSelected.length}} </h3>
+
+  <div style="position: absolute; z-index: 9999; right: 16px; top: 16px; min-width: 30%;">
+
+    <div style="float: right; width: 200px;">
+      <ion-card color="primary" class="ion-no-margin ion-no-padding" *ngIf="data">
+        <ion-card-content class="ion-no-padding">
+          
+          <div style="padding-top: 8px;" *ngIf="actualEndpoint == 'p'">
+            <div style="padding-right: 8px; max-width: 200px; width: 200px; overflow: auto; max-height: 30vh;">
+              <div *ngFor="let d of data; let i = index" lines="none" class="category-question-map" style="padding: 8px 0 8px 12px; position: relative;">
+                <div style="float: left; width: calc(100% - 20px);">
+                  {{d.name}}
+                </div>
+
+                <div style="width: 18px; height: 18px; position: absolute; right: 0; bottom: 8px;">
+                  <ion-icon slot="end" [ngStyle]="{'color': colors[i]}" name="square"></ion-icon>
+                </div>
+
+                <div style="clear: both;"></div>
+              </div>
+            </div>
+          </div>
+          <div style="padding-top: 8px;" *ngIf="actualEndpoint == 'o'">
+            <div lines="none" class="category-question-map" style="padding: 8px 0 8px 12px; position: relative;" (click)="showRest = (showRest ? null : 1)">
+
+              <div style="float: left; width: calc(100% - 20px);">
+                {{selected.name}}
+              </div>
+
+              <div style="width: 18px; height: 18px; position: absolute; right: 0; bottom: 8px;">
+                <ion-icon slot="end" [ngStyle]="{'color': '#e62e2c'}" name="checkmark-circle"></ion-icon>
+              </div>
+              <div style="clear: both;"></div>
+            </div>
+              <ion-icon *ngIf="showRest" style="display: block; margin: auto;" name="caret-up-outline"></ion-icon>
+              <ion-icon *ngIf="!showRest" style="display: block; margin: auto;" name="caret-down-outline"></ion-icon>
+
+            <div *ngIf="showRest" style="padding-right: 8px; max-width: 200px; width: 200px; overflow: auto; max-height: 30vh;">
+              <div *ngFor="let d of data" [ngStyle]="{'display': (selected.id == d.id) ? 'none' : 'block' }" lines="none" class="category-question-map" style="padding: 8px 0 8px 12px; position: relative;">
+                <div (click)="select(d)">
+                  {{d.name}}
+                </div>
+
+                <!-- <div style="width: 18px; height: 18px; position: absolute; right: 0; bottom: 8px;">
+                  <ion-icon slot="end" [ngStyle]="{'color': (selected.id == d.id ? '#e62e2c' : '#31760d')}" name="checkmark-circle"></ion-icon>
+                </div> -->
+
+                <!-- <div style="clear: both;"></div> -->
+              </div>
+            </div>
+          </div>
+
+        </ion-card-content>
+      </ion-card>
+
+      <button *ngIf="mod == 'r'" class="bmb-btn sm green t-1" (click)="makeCorregir()">Corregir</button>
+
+      <button *ngIf="mod == 'r'" class="bmb-btn sm red t-1" (click)="makeResolver()">Resolver</button>
+
+      <button class="bmb-btn sm blue t-1" *ngIf="actualEndpoint == 'o'" (click)="siguiente()">Siguiente</button>
+
+      <button class="bmb-btn sm blue t-1" *ngIf="actualEndpoint == 'p'" (click)="exit()">Salir</button>
+
+      <h5 style="padding: 8px 0; background-color: rgba(0,0,0,.5); color: #fff; text-align: center; text-shadow: black 0px 0px 5px; position: absolute; /*right: 188px;*/ width: 100%;/*165px;*/ margin: 0; font-size: 14px;" *ngIf="(corregir || resolver) && mod == 'r'">
+        <span style="color:green;">BIEN</span> = {{bien.length}}/{{selected.cities.length}} <br>
+        <span style="color:crimson;">MAL</span> = {{mal.length}}/{{selected.cities.length}} <br>
+        <span>BLANCO</span> = {{ selected.cities.length - bien.length }}/{{selected.cities.length}} <br>
+      </h5>
+    </div>
+
+  </div>
+
+	<div id="map" #map style="height: 100%; width: 100vw;">
+		
+	</div>
+
+  <canvas id="canvas"></canvas>
+
+</ion-content>

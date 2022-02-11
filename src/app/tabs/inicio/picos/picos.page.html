@@ -1,0 +1,89 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>PICOS</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="gray">
+
+  <h6>Lorem ipsum, dolor, sit amet consectetur adipisicing elit. Repellendus aut ipsum sunt at praesentium reprehenderit pariatur, dicta tenetur accusamus illo numquam non voluptates.</h6>
+
+  <ion-card color="primary" class="ion-no-margin" *ngIf="data">
+
+    <ion-card-content *ngFor="let dd of data[0]; let h = index">
+      
+      <ion-card-header>
+        <h2 style="font-size: 20px;" (click)="show3 = (show3 == h+'ss' ? null : h+'ss')">{{dd.name}}</h2>
+      </ion-card-header>
+      
+      <ion-list *ngIf="show3 == h+'ss'">
+        <ion-item lines="none" *ngFor="let ddd of dd.hijos" class="category-question" (click)="saveCategory(ddd)">
+          <ion-label class="ion-text-wrap" slot="start">
+            {{ddd.name}}
+          </ion-label>
+
+          <ion-icon slot="end" name="checkmark-circle"></ion-icon>
+        </ion-item>
+      </ion-list>
+
+    </ion-card-content>
+
+  </ion-card>
+
+  <br>
+
+  <ion-card color="primary" class="ion-no-margin" *ngIf="data">
+
+    <div *ngFor="let d of data[1]; let i = index">
+      <h3 style="margin-left: 30px; margin-bottom: 8px;" (click)="show = (show == i+'s' ? null : i+'s')">{{d.name}}</h3>
+
+      <hr>
+        <div *ngIf="show == i+'s'">
+          <ion-card-content *ngFor="let dd of d.hijos; ; let j = index">
+
+              
+            <ion-card-header>
+              <h2 style="font-size: 20px;" (click)="show2 = (show2 == j+'ss' ? null : j+'ss')">{{dd.name}}</h2>
+            </ion-card-header>
+            
+            <ion-list *ngIf="show2 == j+'ss'">
+              <ion-item lines="none" *ngFor="let ddd of dd.hijos" class="category-question" (click)="saveCategory(ddd)">
+                <ion-label class="ion-text-wrap" slot="start">
+                  {{ddd.name}}
+                </ion-label>
+
+                <ion-icon slot="end" name="checkmark-circle"></ion-icon>
+              </ion-item>
+            </ion-list>
+
+
+          </ion-card-content>
+        </div>
+    </div>
+
+  </ion-card>
+
+  <br>
+
+  <ion-card color="primary" class="ion-no-margin" *ngIf="data">
+
+    <ion-card-content>
+      
+      <ion-list>
+        <ion-item lines="none" *ngFor="let ddd of data[2]" class="category-question" (click)="saveCategory(ddd)">
+          <ion-label class="ion-text-wrap" slot="start">
+            {{ddd.name}}
+          </ion-label>
+
+          <ion-icon slot="end" name="checkmark-circle"></ion-icon>
+        </ion-item>
+      </ion-list>
+
+    </ion-card-content>
+
+  </ion-card>
+
+</ion-content>

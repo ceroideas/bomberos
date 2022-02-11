@@ -1,0 +1,477 @@
+<ion-header>
+  <ion-toolbar color="primary">
+  	<ion-buttons slot="start">
+      <ion-button [routerLink]="['/tabs/inicio']" routerDirection="root"><ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="api.logout()"><ion-icon slot="icon-only" name="exit"></ion-icon></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="gray">
+
+	<!-- <div *ngIf="mod == 'v' && data" class="ion-padding">
+		<ion-searchbar class="ion-no-padding" [(ngModel)]="query" placeholder="Buscar por temas" color="primary"></ion-searchbar>
+
+		<br>
+
+		<div *ngIf="'Altitud' | search:query">
+			<h5>Altitud</h5>
+
+			<ion-card color="primary" class="ion-no-margin" *ngIf="data">
+		    <ion-card-content>
+		      
+		      <ion-list>
+		        <ion-item *ngFor="let d of data.altitude" lines="none" class="category-question" (click)="saveCategory(d,'altitud','ALTITUD')">
+		          <ion-label class="ion-text-wrap" slot="start">
+		            {{d.name}}
+		          </ion-label>
+
+		          <ion-icon slot="end" name="checkmark-circle"></ion-icon>
+		        </ion-item>
+		      </ion-list>
+
+		    </ion-card-content>
+		  </ion-card>
+		</div>
+		<div *ngIf="'Población' | search:query">
+			<h5>Población</h5>
+
+			<ion-card color="primary" class="ion-no-margin" *ngIf="data">
+		    <ion-card-content>
+		      
+		      <ion-list>
+		        <ion-item *ngFor="let d of data.population" lines="none" class="category-question" (click)="saveCategory(d,'poblacion','POBLACIÓN')">
+		          <ion-label class="ion-text-wrap" slot="start">
+		            {{d.name}}
+		          </ion-label>
+
+		          <ion-icon slot="end" name="checkmark-circle"></ion-icon>
+		        </ion-item>
+		      </ion-list>
+
+		    </ion-card-content>
+		  </ion-card>
+		</div>
+		<div *ngIf="'Picos' | search:query">
+			<h5>Picos</h5>
+
+			<ion-card color="primary" class="ion-no-margin" *ngIf="data">
+
+		    <ion-card-content *ngFor="let d of data.peak[1]">
+		      
+		      <ion-card-header>
+		        <h2>{{d.name}}</h2>
+		      </ion-card-header>
+		      
+		      <ion-list>
+		        <ion-item lines="none" *ngFor="let dd of d.hijos" class="category-question" (click)="saveCategory(dd,'picos','PICOS')">
+		          <ion-label class="ion-text-wrap" slot="start">
+		            {{dd.name}}
+		          </ion-label>
+
+		          <ion-icon slot="end" name="checkmark-circle"></ion-icon>
+		        </ion-item>
+		      </ion-list>
+
+		    </ion-card-content>
+		  </ion-card>
+		</div>
+		<div *ngIf="'Rios / Arroyos' | search:query">
+			<h5>Rios / Arroyos</h5>
+
+			<ion-card color="primary" class="ion-no-margin" *ngIf="data">
+		    <ion-card-content>
+
+		      <ion-card-header>
+		        <h2>Ríos</h2>
+		      </ion-card-header>
+		      
+		      <ion-list>
+		        <ion-item *ngFor="let d of data.river[0]" lines="none" class="category-question" (click)="saveCategory1(data.river[0],d,'rios','RÍOS / ARROYOS')">
+		          <ion-label class="ion-text-wrap" slot="start">
+		            {{d.name}}
+		          </ion-label>
+
+		          <ion-icon slot="end" name="checkmark-circle"></ion-icon>
+		        </ion-item>
+		      </ion-list>
+
+
+		      <ion-card-header>
+		        <h2>Arroyos</h2>
+		      </ion-card-header>
+		      
+		      <ion-list>
+		        <ion-item *ngFor="let d of data.river[1]" lines="none" class="category-question" (click)="saveCategory1(data.river[1],d,'rios','RÍOS / ARROYOS')">
+		          <ion-label class="ion-text-wrap" slot="start">
+		            {{d.name}}
+		          </ion-label>
+
+		          <ion-icon slot="end" name="checkmark-circle"></ion-icon>
+		        </ion-item>
+		      </ion-list>
+
+		    </ion-card-content>
+		  </ion-card>
+		</div>
+		<div *ngIf="'Embalses / Lagunas' | search:query">
+			<h5>Embalses / Lagunas</h5>
+
+			<ion-card color="primary" class="ion-no-margin" *ngIf="data">
+		    <ion-card-content>
+
+		      <ion-card-header>
+		        <h2>Embalses</h2>
+		      </ion-card-header>
+		      
+		      <ion-list>
+		        <ion-item *ngFor="let d of data.lagoon[0]" lines="none" class="category-question" (click)="saveCategory1(data.lagoon[0],d,'embalses','EMBALSES / LAGUNAS')">
+		          <ion-label class="ion-text-wrap" slot="start">
+		            {{d.name}}
+		          </ion-label>
+
+		          <ion-icon slot="end" name="checkmark-circle"></ion-icon>
+		        </ion-item>
+		      </ion-list>
+
+
+		      <ion-card-header>
+		        <h2>Lagunas</h2>
+		      </ion-card-header>
+		      
+		      <ion-list>
+		        <ion-item *ngFor="let d of data.lagoon[1]" lines="none" class="category-question" (click)="saveCategory1(data.lagoon[1],d,'embalses','EMBALSES / LAGUNAS')">
+		          <ion-label class="ion-text-wrap" slot="start">
+		            {{d.name}}
+		          </ion-label>
+
+		          <ion-icon slot="end" name="checkmark-circle"></ion-icon>
+		        </ion-item>
+		      </ion-list>
+
+		    </ion-card-content>
+		  </ion-card>
+		</div>
+		<div *ngIf="'Espacios Naturales Protegidos' | search:query">
+			<h5>Espacios Naturales Protegidos</h5>
+
+			<ion-card color="primary" class="ion-no-margin" *ngIf="data">
+		    <ion-card-content>
+		      
+		      <ion-list>
+		        <ion-item *ngFor="let d of data.protected" lines="none" class="category-question" (click)="saveCategory(d,'espacios','ESPACIOS NATURALES PROTEGIDOS')">
+		          <ion-label class="ion-text-wrap" slot="start">
+		            {{d.name}}
+		          </ion-label>
+
+		          <ion-icon slot="end" name="checkmark-circle"></ion-icon>
+		        </ion-item>
+		      </ion-list>
+
+		    </ion-card-content>
+		  </ion-card>
+		</div>
+		<div *ngIf="'Parques' | search:query">
+			<h5>Parques</h5>
+
+			<ion-card color="primary" class="ion-no-margin" *ngIf="data">
+		    <ion-card-content>
+		      
+		      <ion-list>
+		        <ion-item *ngFor="let d of data.park" lines="none" class="category-question" (click)="saveCategory(d,'parques','PARQUES')">
+		          <ion-label class="ion-text-wrap" slot="start">
+		            {{d.name}}
+		          </ion-label>
+
+		          <ion-icon slot="end" name="checkmark-circle"></ion-icon>
+		        </ion-item>
+		      </ion-list>
+
+		    </ion-card-content>
+		  </ion-card>
+		</div>
+		<div *ngIf="'Medios Adicionales' | search:query">
+			<h5>Medios Adicionales</h5>
+
+			<ion-card color="primary" class="ion-no-margin" *ngIf="data">
+		    <ion-card-content>
+		      
+		      <ion-list>
+		        <ion-item *ngFor="let d of data.media" lines="none" class="category-question" (click)="saveCategory(d,'medios','MEDIOS ADICIONALES')">
+		          <ion-label class="ion-text-wrap" slot="start">
+		            {{d.name}}
+		          </ion-label>
+
+		          <ion-icon slot="end" name="checkmark-circle"></ion-icon>
+		        </ion-item>
+		      </ion-list>
+
+		    </ion-card-content>
+		  </ion-card>
+		</div>
+		<div *ngIf="'Carreteras' | search:query">
+			<h5>Carreteras</h5>
+
+			<ion-card color="primary" class="ion-no-margin" *ngIf="data">
+		    <ion-card-content>
+		      
+		      <ion-list>
+		        <ion-item *ngFor="let d of data.road" lines="none" class="category-question" (click)="saveCategory(d,'carreteras','CARRETERAS')">
+		          <ion-label class="ion-text-wrap" slot="start">
+		            {{d.name}}
+		          </ion-label>
+
+		          <ion-icon slot="end" name="checkmark-circle"></ion-icon>
+		        </ion-item>
+		      </ion-list>
+
+		    </ion-card-content>
+		  </ion-card>
+		</div>
+		<div *ngIf="'Cercanías / Metro' | search:query">
+			<h5>Cercanías / Metro</h5>
+
+			<ion-card color="primary" class="ion-no-margin" *ngIf="data">
+		    <ion-card-content>
+
+		      <ion-card-header>
+		        <h2>Cercanías</h2>
+		      </ion-card-header>
+		      
+		      <ion-list>
+		        <ion-item *ngFor="let d of data.metro[0]" lines="none" class="category-question" (click)="saveCategory3(data.metro[0],d,'metro','CERCANÍAS / METRO')">
+		          <ion-label class="ion-text-wrap" slot="start">
+		            {{d.name}}
+		          </ion-label>
+
+		          <ion-icon slot="end" name="checkmark-circle"></ion-icon>
+		        </ion-item>
+		      </ion-list>
+
+
+		      <ion-card-header>
+		        <h2>Metro</h2>
+		      </ion-card-header>
+		      
+		      <ion-list>
+		        <ion-item *ngFor="let d of data.metro[1]" lines="none" class="category-question" (click)="saveCategory3(data.metro[1],d,'metro','CERCANÍAS / METRO')">
+		          <ion-label class="ion-text-wrap" slot="start">
+		            {{d.name}}
+		          </ion-label>
+
+		          <ion-icon slot="end" name="checkmark-circle"></ion-icon>
+		        </ion-item>
+		      </ion-list>
+
+		      <ion-card-header>
+		        <h2>Nombre de Línea</h2>
+		      </ion-card-header>
+		      
+		      <ion-list>
+		        <ion-item *ngFor="let d of data.metro[2]" lines="none" class="category-question" (click)="saveCategory3(data.metro[2],d,'metro','CERCANÍAS / METRO',true)">
+		          <ion-label class="ion-text-wrap" slot="start">
+		            {{d.name}}
+		          </ion-label>
+
+		          <ion-icon slot="end" name="checkmark-circle"></ion-icon>
+		        </ion-item>
+		      </ion-list>
+
+		    </ion-card-content>
+		  </ion-card>
+		</div>
+		<div *ngIf="'Gas / Oleo' | search:query">
+			<h5>Gas / Oleo</h5>
+
+			<ion-card color="primary" class="ion-no-margin" *ngIf="data">
+		    <ion-card-content>
+
+		      <ion-card-header>
+		        <h2>Gas</h2>
+		      </ion-card-header>
+		      
+		      <ion-list>
+		        <ion-item *ngFor="let d of data.gas[0]" lines="none" class="category-question" (click)="saveCategory1(data.gas[0],d,'gas','GAS / OLEO')">
+		          <ion-label class="ion-text-wrap" slot="start">
+		            {{d.name}}
+		          </ion-label>
+
+		          <ion-icon slot="end" name="checkmark-circle"></ion-icon>
+		        </ion-item>
+		      </ion-list>
+
+
+		      <ion-card-header>
+		        <h2>Oleo</h2>
+		      </ion-card-header>
+		      
+		      <ion-list>
+		        <ion-item *ngFor="let d of data.gas[1]" lines="none" class="category-question" (click)="saveCategory1(data.gas[1],d,'gas','GAS / OLEO')">
+		          <ion-label class="ion-text-wrap" slot="start">
+		            {{d.name}}
+		          </ion-label>
+
+		          <ion-icon slot="end" name="checkmark-circle"></ion-icon>
+		        </ion-item>
+		      </ion-list>
+
+		    </ion-card-content>
+		  </ion-card>
+		</div>
+		<div *ngIf="'Nº de Servicios' | search:query">
+			<h5>Nº de Servicios</h5>
+
+			<ion-card color="primary" class="ion-no-margin" *ngIf="data">
+		    <ion-card-content>
+		      
+		      <ion-list>
+		        <ion-item lines="none" class="category-question" *ngFor="let d of data.nservice" (click)="saveCategory2(d,'numeros','Nº DE SERVICIOS')">
+		          <ion-label class="ion-text-wrap" slot="start">
+		            {{d.name}}
+		          </ion-label>
+
+		          <ion-icon slot="end" name="checkmark-circle"></ion-icon>
+		        </ion-item>
+		      </ion-list>
+
+		    </ion-card-content>
+		  </ion-card>
+		</div>
+		<div *ngIf="'Consorcios Serv. Municipales' | search:query">
+			<h5>Consorcios / Serv. Municipales</h5>
+
+			<ion-card color="primary" class="ion-no-margin" *ngIf="data">
+		    <ion-card-content>
+
+		    	<ion-card-header>
+		        <h2>Consorcios</h2>
+		      </ion-card-header>
+		      
+		      <ion-list>
+		        <ion-item *ngFor="let d of data.municipal[0]" lines="none" class="category-question" (click)="saveCategory6(data.municipal[0],d,'municipal','Consorcios / Serv. Municipales')">
+		          <ion-label class="ion-text-wrap" slot="start">
+		            {{d.name}}
+		          </ion-label>
+
+		          <ion-icon slot="end" name="checkmark-circle"></ion-icon>
+		        </ion-item>
+		      </ion-list>
+
+
+		      <ion-card-header>
+		        <h2>Servicios Municipales</h2>
+		      </ion-card-header>
+		      
+		      <ion-list>
+		        <ion-item *ngFor="let d of data.municipal[1]" lines="none" class="category-question" (click)="saveCategory4(data.municipal[1],d,'municipal','Consorcios / Serv. Municipales')">
+		          <ion-label class="ion-text-wrap" slot="start">
+		            {{d.name}}
+		          </ion-label>
+
+		          <ion-icon slot="end" name="checkmark-circle"></ion-icon>
+		        </ion-item>
+		      </ion-list>
+
+		    </ion-card-content>
+		  </ion-card>
+		</div>
+	</div> -->
+
+	<!-- <div *ngIf="mod == 'r'"> -->
+	<div>
+		<h6>Lorem ipsum, dolor, sit amet consectetur adipisicing elit. Repellendus aut ipsum sunt at praesentium reprehenderit pariatur, dicta tenetur accusamus illo numquam non voluptates.</h6>
+
+		<br>
+
+		<ion-row>
+			<ion-col size="6">
+				<div class="option" style="background: -webkit-linear-gradient(45deg,#329789,#3dbb92); box-shadow: 0 8px 15px -8px #3dbb92;" (click)="routerLink('municipios')">
+					<span>Municipios</span>
+				</div>
+			</ion-col>
+
+			<ion-col size="6">
+				<div class="option" style="background: -webkit-linear-gradient(45deg,#f9623b,#f9943b); box-shadow: 0 8px 15px -8px #f9943b;" (click)="routerLink('altitud')">
+					<span>Altitud</span>
+				</div>
+			</ion-col>
+
+			<ion-col size="6">
+				<div class="option" style="background: -webkit-linear-gradient(45deg,#2b88ed,#2baeed); box-shadow: 0 8px 15px -8px #2baeed;" (click)="routerLink('poblacion')">
+					<span>Población</span>
+				</div>
+			</ion-col>
+
+			<ion-col size="6">
+				<div class="option" style="background: -webkit-linear-gradient(45deg,#2b88ed,#2baeed); box-shadow: 0 8px 15px -8px #2baeed;" (click)="routerLink('picos')">
+					<span>Picos</span>
+				</div>
+			</ion-col>
+
+			<ion-col size="6">
+				<div class="option" style="background: -webkit-linear-gradient(45deg,#f9623b,#f9943b); box-shadow: 0 8px 15px -8px #f9943b;" (click)="routerLink('rios')">
+					<span>Rios <br> Arroyos</span>
+				</div>
+			</ion-col>
+
+			<ion-col size="6">
+				<div class="option" style="background-color: #242d35; box-shadow: 0 8px 15px -8px #242d35;" (click)="routerLink('embalses')">
+					<span>Embalses <br> Lagunas</span>
+				</div>
+			</ion-col>
+
+			<ion-col size="6">
+				<div class="option" style="background: -webkit-linear-gradient(45deg,#f9623b,#f9943b); box-shadow: 0 8px 15px -8px #f9943b;" (click)="routerLink('espacios')">
+					<span>Espacios <br> Naturales <br> Protegidos</span>
+				</div>
+			</ion-col>
+
+			<ion-col size="6">
+				<div class="option" style="background: -webkit-linear-gradient(45deg,#329789,#3dbb92); box-shadow: 0 8px 15px -8px #3dbb92;" (click)="routerLink('parques')">
+					<span>Parques</span>
+				</div>
+			</ion-col>
+
+			<ion-col size="6">
+				<div class="option" style="background: -webkit-linear-gradient(45deg,#2b88ed,#2baeed); box-shadow: 0 8px 15px -8px #2baeed;" (click)="routerLink('medios')">
+					<span>Medios <br> Adicionales</span>
+				</div>
+			</ion-col>
+
+			<ion-col size="6">
+				<div class="option" style="background-color: #242d35; box-shadow: 0 8px 15px -8px #242d35;" (click)="routerLink('carreteras')">
+					<span>Carreteras</span>
+				</div>
+			</ion-col>
+
+			<ion-col size="6">
+				<div class="option" style="background: -webkit-linear-gradient(45deg,#329789,#3dbb92); box-shadow: 0 8px 15px -8px #3dbb92;" (click)="routerLink('metro')">
+					<span>Cercanías <br> Metro</span>
+				</div>
+			</ion-col>
+
+			<ion-col size="6">
+				<div class="option" style="background: -webkit-linear-gradient(45deg,#f9623b,#f9943b); box-shadow: 0 8px 15px -8px #f9943b;" (click)="routerLink('gas')">
+					<span>Gas <br> Oleo</span>
+				</div>
+			</ion-col>
+
+			<ion-col size="6">
+				<div class="option" style="background: -webkit-linear-gradient(45deg,#f9623b,#f9943b); box-shadow: 0 8px 15px -8px #f9943b;" (click)="routerLink('numbers')">
+					<span>Nº de <br> Servicios</span>
+				</div>
+			</ion-col>
+
+			<ion-col size="6">
+				<div class="option" style="background: -webkit-linear-gradient(45deg,#2b88ed,#2baeed); box-shadow: 0 8px 15px -8px #2baeed;" (click)="routerLink('municipal')">
+					<span>Consorcios <br> Serv. <br> Municipales</span>
+				</div>
+			</ion-col>
+		</ion-row>
+	</div>
+
+
+</ion-content>

@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>HOME</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="api.logout()"><ion-icon slot="icon-only" name="exit"></ion-icon></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="welcome">
+
+  <div class="">
+
+    <div class="center-item">
+
+      <img src="assets/logo.png" alt="" class="logo">
+
+      <br>
+      <br>
+
+      <h3>MAPPAS</h3>
+
+      <button class="bmb-btn t-4" [routerLink]="['/tabs/preguntas']" (click)="mod('v')" routerDirection="forward">Visualización</button>
+
+      <button class="bmb-btn red t-4" [routerLink]="['/tabs/preguntas']" (click)="mod('r')" routerDirection="forward">Repaso</button>
+
+    </div>
+    
+  </div>
+
+</ion-content>

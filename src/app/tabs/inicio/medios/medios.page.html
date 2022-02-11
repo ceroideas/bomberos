@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>MEDIOS ADICIONALES</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="gray">
+
+  <h6>Lorem ipsum, dolor, sit amet consectetur adipisicing elit. Repellendus aut ipsum sunt at praesentium reprehenderit pariatur, dicta tenetur accusamus illo numquam non voluptates.</h6>
+
+  <ion-card color="primary" class="ion-no-margin" *ngIf="data">
+    <ion-card-content>
+      
+      <ion-list>
+        <ion-item *ngFor="let d of data" lines="none" class="category-question" (click)="saveCategory(d)">
+          <ion-label class="ion-text-wrap" slot="start">
+            {{d.name}}
+          </ion-label>
+
+          <ion-icon slot="end" name="checkmark-circle"></ion-icon>
+        </ion-item>
+      </ion-list>
+
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

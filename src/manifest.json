@@ -1,0 +1,14 @@
+{
+  "name": "MAPPAS",
+  "short_name": "MAPPAS",
+  "start_url": "index.html",
+  "display": "standalone",
+  "icons": [{
+    "src": "assets/icon/favicon.png",
+    "sizes": "100x100",
+    "type": "image/png"
+  }],
+  "background_color": "#333333",
+  "theme_color": "#333333",
+  "play_store_key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoQnVt8I9eF2xfA/xp1gHzTxc9XfqCR9HQY4zaDdYuN3v2cGE4uWzWOSVSSbPuZUPvZC4Y0PVpYBFrFTwbCuoRWhk+/djTbaPzOt1SLSTlMQvnneRtviQxab0PYHQaCQP4ikfPARUipaaJgWjDo/mLKN1ijEO+R8/aIR8ks1CH77sMbb7U8lfbiQHUeCQPveSDPy+mkecQkByYV9+7zQJgmfUNPip3S7vWmCcJsXkELcPWJrd3+qENLGTMucZLMo/zTqBcDvDmedr3vdrB3vANxAlhXo0Bqn2DnZQ5K8sKSOOsnPijhT/5AwfvCZ+G+s1AYQPL5qMlwjyLLaXxJ4ZMQIDAQAB"
+}
