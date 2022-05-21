@@ -34,7 +34,11 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
+
       this.statusBar.styleDefault();
+      this.statusBar.show();
+      this.statusBar.overlaysWebView(false);
+      this.statusBar.styleLightContent();
       this.splashScreen.hide();
       //
       this.api.startStore();

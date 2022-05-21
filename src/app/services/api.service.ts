@@ -42,6 +42,7 @@ export class ApiService {
 
   calculateSubscription()
   {
+    // return true // quitar esto luego
     this.user = JSON.parse(localStorage.getItem('BOMuser'));
 
     if (!this.user.subscription_until) {
@@ -312,7 +313,7 @@ export class ApiService {
     //   console.log('se ha restaurado la compra');
     // }
 
-    this.alert.create({message:"La compra ha sido realizada satisfactoriamente!",buttons: ["ok"]}).then(a=>a.present());
+    // this.alert.create({message:"La compra ha sido realizada satisfactoriamente!",buttons: ["ok"]}).then(a=>a.present());
   }
 
   showError()
@@ -326,6 +327,7 @@ export class ApiService {
     } else {
       console.log('no se encuentra la compra');
     }
+    // this.alert.create({message:"No se ha podido completar la petición", buttons: [{text:"Ok"}]}).then(a=>a.present());
   }
 
   async startStore()
@@ -335,17 +337,21 @@ export class ApiService {
 
       this.store.verbosity = this.store.DEBUG;
       this.store.register({
-        id: "mappas01",
-        type: this.store.NON_CONSUMABLE,
+        id: "mappaspro",
+        type: this.store.PAID_SUBSCRIPTION,
       });
 
-      this.store.when("mappas01").approved((product: IAPProduct) => {
+      this.store.when("mappaspro").initiated((product: IAPProduct) => {
+        console.log("producto inicializado:",product);
+      });
+
+      this.store.when("mappaspro").approved((product: IAPProduct) => {
         // download the feature
         console.error('Purchase was Approved');
-        localStorage.setItem('mappas01', new Date().toString());
+        localStorage.setItem('mappaspro', new Date().toString());
         
         this.vPro = true;
-        product.finish();
+        // product.finish();
 
         this.saveSubscription(this.user.id).subscribe((data)=>{
           localStorage.setItem('BOMuser',JSON.stringify(data));
@@ -353,13 +359,46 @@ export class ApiService {
         })
       });
 
-      this.store.when("mappas01").cancelled( (product) => {
+      this.store.when("mappaspro").owned((product: IAPProduct) => {
+        // download the feature
+        console.error('Purchase was Approved');
+        localStorage.setItem('mappaspro', new Date().toString());
+        
+        this.vPro = true;
+        // product.finish();
+
+        this.saveSubscription(this.user.id).subscribe((data)=>{
+          localStorage.setItem('BOMuser',JSON.stringify(data));
+          this.showApproved();
+        })
+      });
+
+      this.store.when("mappaspro").updated((product: IAPProduct) => {
+        // download the feature
+        console.error('Purchase was Updated');
+
+        if (product.loaded && product.valid && (product.state === this.store.OWNED || product.state === this.store.APPROVED)) {
+          localStorage.setItem('mappaspro', new Date().toString());
+          
+          this.vPro = true;
+          // product.finish();
+
+          // this.saveSubscription(this.user.id).subscribe((data)=>{
+          //   localStorage.setItem('BOMuser',JSON.stringify(data));
+          //   this.showApproved();
+          // })
+        }else{
+          this.vPro = false;
+        }
+      });
+
+      this.store.when("mappaspro").cancelled( (product) => {
         console.error('Purchase was Cancelled');
         this.showError();
         // product.finish();
       });
 
-      this.store.when('mappas01').error( (err) => {
+      this.store.when('mappaspro').error( (err) => {
         console.error('Error del producto ' + JSON.stringify(err));
         this.showError();      
       });
@@ -367,10 +406,14 @@ export class ApiService {
       // Track all store errors
       this.store.error( (err) => {
         console.error('Store Error ' + JSON.stringify(err));
-        this.showError();      
+        // this.showError();      
       });
 
+      this.store.autoFinishTransactions = true;
+
       // this.restauraCompra();
+
+      this.store.refresh();
 
       /**///////////////**/
 
@@ -382,7 +425,7 @@ export class ApiService {
   async checkSuscripcion(){
 
      // return await new Promise(resolve => {
-     //   let suscripcion = localStorage.getItem('mappas01');
+     //   let suscripcion = localStorage.getItem('mappaspro');
 
      //   if (suscripcion){
      //      let fechaSuscripcion = new Date(suscripcion);
@@ -406,6 +449,8 @@ export class ApiService {
 
     let r = this.store.refresh();
 
+    this.store.update();
+
     r.finished(()=>{
       console.log('finished');
       this.loadingCtrl.dismiss();
@@ -419,14 +464,23 @@ export class ApiService {
   }
 
   compraAndroid(){
+    
+    let r = this.store.refresh();
+
     this.type = 'purchase';
-    this.store.order("mappas01");
+    // const p = this.store.get('mappaspro');
+    // console.log('Se ha ordenado el producto mappaspro',JSON.stringify(p));
+    this.store.order('mappaspro');
   }
 
   restauraCompra(){
     this.type = 'restore';
 
     let r = this.store.refresh();
+
+    console.log(r,JSON.stringify(r));
+
+    // this.store.update();
 
     r.finished(()=>{
       console.log('finished');

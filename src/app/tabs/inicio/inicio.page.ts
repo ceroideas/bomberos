@@ -38,8 +38,10 @@ export class InicioPage implements OnInit {
 
   routerLink(route)
   {
-    if (!this.api.calculateSubscription()) {
-      return this.api.showAlert();
+    if (/*route != 'municipios' && */route != 'altitud' && route != 'poblacion') {
+      if (!this.api.calculateSubscription()) {
+        return this.api.showAlert();
+      }
     }
 
     this.api.nav.navigateForward('tabs/preguntas/'+route);

@@ -63,7 +63,7 @@ export class RegisterPage implements OnInit {
 
         a.dismiss();
 
-        this.alertCtrl.create({message:"Usuario registrado (mensaje de prueba) inicia sesión"}).then(a=>{a.present()});
+        this.alertCtrl.create({message:"Usuario registrado satisfactoriamente, ahora puedes iniciar sesión"}).then(a=>{a.present()});
         this.nav.navigateRoot('login');
 
       },err=>{
